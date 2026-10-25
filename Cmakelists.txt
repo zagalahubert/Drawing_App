@@ -1,0 +1,75 @@
+cmake_minimum_required(VERSION 3.20)
+project(DrawingApp LANGUAGES CXX)
+
+add_executable(DrawingApp
+    DrawingApp/Application.cpp
+    DrawingApp/DrawClass.cpp
+    DrawingApp/FileInput.cpp
+    DrawingApp/ToolCircle.cpp
+    DrawingApp/ToolFilledRectangle.cpp
+    DrawingApp/ToolInterface.cpp
+    DrawingApp/ToolLine.cpp
+    DrawingApp/ToolRectangle.cpp
+    DrawingApp/vendor/imgui/imgui-SFML.cpp
+    DrawingApp/vendor/imgui/imgui.cpp
+    DrawingApp/vendor/imgui/ImGuiFileDialog.cpp
+    DrawingApp/vendor/imgui/imgui_draw.cpp
+    DrawingApp/vendor/imgui/imgui_tables.cpp
+    DrawingApp/vendor/imgui/imgui_widgets.cpp
+    DrawingApp/DrawClass.h
+    DrawingApp/FileInput.h
+    DrawingApp/ToolCircle.h
+    DrawingApp/ToolFilledRectangle.h
+    DrawingApp/ToolInterface.h
+    DrawingApp/ToolLine.h
+    DrawingApp/ToolRectangle.h
+)
+
+target_compile_features(DrawingApp PRIVATE cxx_std_20)
+set_target_properties(DrawingApp PROPERTIES CXX_EXTENSIONS OFF)
+
+target_include_directories(DrawingApp PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/DrawingApp/vendor
+)
+target_link_directories(DrawingApp PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/lib
+)
+
+target_compile_definitions(DrawingApp PRIVATE
+    SFML_STATIC
+    _CONSOLE
+    UNICODE
+    _UNICODE
+)
+
+target_link_libraries(DrawingApp PRIVATE
+    $<$<CONFIG:Debug>:sfml-graphics-s-d.lib>
+    $<$<CONFIG:Debug>:sfml-window-s-d.lib>
+    $<$<CONFIG:Debug>:sfml-system-s-d.lib>
+    $<$<NOT:$<CONFIG:Debug>>:sfml-graphics-s.lib>
+    $<$<NOT:$<CONFIG:Debug>>:sfml-window-s.lib>
+    $<$<NOT:$<CONFIG:Debug>>:sfml-system-s.lib>
+    opengl32.lib
+    winmm.lib
+    gdi32.lib
+    $<$<CONFIG:Debug>:freetyped.lib>
+    $<$<CONFIG:Debug>:harfbuzzd.lib>
+    $<$<NOT:$<CONFIG:Debug>>:freetype.lib>
+    $<$<NOT:$<CONFIG:Debug>>:harfbuzz.lib>
+)
+
+if(MSVC)
+    target_compile_options(DrawingApp PRIVATE /permissive- /sdl /W3)
+    set_property(TARGET DrawingApp PROPERTY INTERPROCEDURAL_OPTIMIZATION_RELEASE ON)
+endif()
+
+add_custom_command(TARGET DrawingApp POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_CURRENT_SOURCE_DIR}/DrawingApp/res
+        $<TARGET_FILE_DIR:DrawingApp>/res
+)
+
+set_target_properties(DrawingApp PROPERTIES
+    VS_DEBUGGER_WORKING_DIRECTORY "$<TARGET_FILE_DIR:DrawingApp>"
+)
