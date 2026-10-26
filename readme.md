@@ -16,9 +16,9 @@ It lets the user change both the fill and outline colors of the figures.
 ## Features
 1. **Additional** options for every shape.
 2. **Controls:**
-    - 'LCtrl + z' - undo an action
-    - 'LCtrl + o' - open file
-    - 'LCtrl + s' - save file
+    - `LCtrl + z` - undo an action
+    - `LCtrl + o` - open file
+    - `LCtrl + s` - save file
 3. **Undoing** up to **10** actions
 4. A shape is shown in **real-time** while drawing.
 5. **Saving and opening** a canvas.
