@@ -21,6 +21,7 @@ It lets the user change both the fill and outline colors of the figures.
     - 'LCtrl + s' - save file
 3. **Undoing** up to **10** actions
 4. A shape is shown in **real-time** while drawing.
+5. **Saving and opening** a canvas.
 
 ## Setup
 Before downloading make sure you have cmake installed. To run the programme, run commands:
