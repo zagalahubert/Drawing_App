@@ -85,7 +85,6 @@ void DrawClass::showAboutWindow()
 
 	if (ImGui::BeginPopupModal("About", NULL, ImGuiWindowFlags_NoResize))
 	{	
-		ImGui::Text("IUiBG Lab02");
 		ImGui::Text("Autor: Hubert Zagala");
 		if (ImGui::Button("Ok"))
 			ImGui::CloseCurrentPopup();
